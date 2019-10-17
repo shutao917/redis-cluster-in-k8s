@@ -32,7 +32,8 @@ redis cluster集群中各redis实例的cluster.conf文件保存了集群所有�
 docker build -t registry.yingzi.com:8500/library/redis:5.0.3-cluster ./  
 docker push registry.yingzi.com:8500/library/redis:5.0.3-cluster  
 2、部署StatefulSet  
-kubectl create -f rediscluster.yaml
+kubectl create -f rediscluster.yaml  
 一个6节点，3主3从的节点创建完毕,redis-cli -h redis-cluster -p 7000 -a abcdef cluster nodes查看集群节点
+
 #联系方式
 QQ:276522206
