@@ -27,5 +27,12 @@ redis cluster集群中各redis实例的cluster.conf文件保存了集群所有�
 3.是否是最后一个启动的Pod  
     使用K8S Api Server，读取StatefulSet的当前状态，StatefulSet中Pod是按顺序启动，把Pod的readinessProbe设置为tcpSocket:port:7000,只有当前一个Pod处于Ready状态(Redis 7000端口启动)，才会启动下一个Pod，因此当current_replicas==replicas时,认为当前为最后一个启动的Pod,并且前面所有Redis已经启动
 
+#使用
+1、创建镜像并上传到镜像仓库  
+docker build -t registry.yingzi.com:8500/library/redis:5.0.3-cluster ./  
+docker push registry.yingzi.com:8500/library/redis:5.0.3-cluster  
+2、部署StatefulSet  
+kubectl create -f rediscluster.yaml
+一个6节点，3主3从的节点创建完毕,redis-cli -h redis-cluster -p 7000 -a abcdef cluster nodes查看集群节点
 #联系方式
 QQ:276522206
