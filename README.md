@@ -17,6 +17,7 @@ redis cluster集群中各redis实例的cluster.conf文件保存了集群所有�
 
 # 原理
 使用redis-k8s.py脚本，在redis-server启动前，调用k8s api获取其他实例的ip，更新cluster.conf文件，并在第一次启动时自动创建redis集群
+![image](https://github.com/shutao917/redis-cluster-in-k8s/blob/master/images/Redis-Cluster-In-K8S.jpg)
 
 其中的判断逻辑如下:  
 1.本节点是否已加入Redis集群  
