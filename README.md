@@ -20,18 +20,18 @@ redis cluster集群中各redis实例的cluster.conf文件保存了集群所有�
 ![image](https://github.com/shutao917/redis-cluster-in-k8s/blob/master/images/Redis-Cluster-In-K8S.jpg)
 
 其中的判断逻辑如下:  
-1.本节点是否已加入Redis集群  
+* 本节点是否已加入Redis集群  
     如果本地cluster.conf文件不存在，或cluster.conf中只有本节点的记录,则认为本节点还没有加入Redis集群  
-2.是否已存在集群  
+* 是否已存在集群  
     连接其他已启动节点的redis server,执行cluster nodes命令,如果有一个节点是slave或slot已经分配，则认为集群已经存在  
-3.是否是最后一个启动的Pod  
+* 是否是最后一个启动的Pod  
     使用K8S Api Server，读取StatefulSet的当前状态，StatefulSet中Pod是按顺序启动，把Pod的readinessProbe设置为tcpSocket:port:7000,只有当前一个Pod处于Ready状态(Redis 7000端口启动)，才会启动下一个Pod，因此当current_replicas==replicas时,认为当前为最后一个启动的Pod,并且前面所有Redis已经启动
 
 # 使用
-1、创建镜像并上传到镜像仓库  
+* 创建镜像并上传到镜像仓库  
 docker build -t registry.yingzi.com:8500/library/redis:5.0.3-cluster ./  
 docker push registry.yingzi.com:8500/library/redis:5.0.3-cluster  
-2、部署StatefulSet  
+* 部署StatefulSet  
 kubectl create -f rediscluster.yaml  
 一个6节点，3主3从的节点创建完毕,redis-cli -h redis-cluster -p 7000 -a abcdef cluster nodes查看集群节点
 
