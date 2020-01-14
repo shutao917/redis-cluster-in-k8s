@@ -63,7 +63,7 @@ def update_cluster_config():
             return
         #判断当前是否最后一个启动的Pod
         v1b2=client.AppsV1beta2Api()
-        st=v1b2.list_namespaced_stateful_set('redis',field_selector='metadata.name='+st_name)
+        st=v1b2.list_namespaced_stateful_set(namespace,field_selector='metadata.name='+st_name)
         if not st.items:
             print("%s [%s] %s" % (time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(time.time())),'error',st_name+' not exists'))
             return
