@@ -50,7 +50,7 @@ spec:
           valueFrom:
             fieldRef:
               fieldPath: metadata.name
-        image: "registry.yingzi.com:8500/library/redis:5.0.3-cluster"
+        image: "registry.com:8500/library/redis:5.0.3-cluster"
         imagePullPolicy: Always
         ports:
             - name: redis
