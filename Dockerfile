@@ -1,4 +1,4 @@
-FROM registry.yingzi.com:8500/library/redis:5.0.3-alpine
+FROM registry.com:8500/library/redis:5.0.3-alpine
 
 RUN apk update
 RUN apk add python3
